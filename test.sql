@@ -1,0 +1,1 @@
+SELECT `RANK`,`community` FROM `d2021` WHERE `college-code`="335"
