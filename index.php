@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
 
   // echo $val;
   $sql = "(
-    SELECT `RANK`, `COLLEGE-CODE`
+    SELECT `RANK`, `COLLEGE-CODE`,'2023' AS `YEAR`
     FROM `D2023`
     WHERE `RANK` < $G_RANK
     ORDER BY `RANK` DESC
@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
 )
 UNION ALL
 (
-    SELECT `RANK`, `COLLEGE-CODE`
+    SELECT `RANK`, `COLLEGE-CODE`,'2023' AS `YEAR`
     FROM `D2023`
     WHERE `RANK` >= $G_RANK
     ORDER BY `RANK` ASC
@@ -70,7 +70,7 @@ UNION ALL
 )
 UNION ALL
 (
-    SELECT `RANK`, `COLLEGE-CODE`
+    SELECT `RANK`, `COLLEGE-CODE`,'2022' AS `YEAR`
     FROM `D2022`
     WHERE `RANK` < $G_RANK
     ORDER BY `RANK` DESC
@@ -78,7 +78,7 @@ UNION ALL
 )
 UNION ALL
 (
-    SELECT `RANK`, `COLLEGE-CODE`
+    SELECT `RANK`, `COLLEGE-CODE`,'2022' AS `YEAR`
     FROM `D2022`
     WHERE `RANK` >= $G_RANK
     ORDER BY `RANK` ASC
@@ -86,7 +86,7 @@ UNION ALL
 )
 UNION ALL
 (
-    SELECT `RANK`, `COLLEGE-CODE`
+    SELECT `RANK`, `COLLEGE-CODE`,'2021' AS `YEAR`
     FROM `D2021`
     WHERE `RANK` < $G_RANK
     ORDER BY `RANK` DESC
@@ -94,7 +94,7 @@ UNION ALL
 )
 UNION ALL
 (
-    SELECT `RANK`, `COLLEGE-CODE`
+    SELECT `RANK`, `COLLEGE-CODE`,'2021' AS `YEAR`
     FROM `D2021`
     WHERE `RANK` >= $G_RANK
     ORDER BY `RANK` ASC
@@ -107,17 +107,18 @@ LIMIT 25;
   $result = mysqli_query($con, $sql);
   if (mysqli_num_rows($result) > 0) {
 
-    while ($row = mysqli_fetch_assoc($result)) {
+    while ($rank_row = mysqli_fetch_assoc($result)) {
 
-      $col_code = $row['COLLEGE-CODE'];
+      $col_code = $rank_row['COLLEGE-CODE'];
 
-      $sql = "SELECT * FROM `college_code` WHERE `c-code` =  '$col_code' ";
+      $sql = "SELECT DISTINCT  * FROM `college_code` WHERE `c-code` =  '$col_code' ";
       $result1 = mysqli_query($con, $sql);
 
       if (mysqli_num_rows($result1) > 0) {
 
         while ($row = mysqli_fetch_assoc($result1)) {
           print_r($row);
+          echo  $rank_row['YEAR'];
           //echo $row['c-name'];
           echo "<br>";
         }
