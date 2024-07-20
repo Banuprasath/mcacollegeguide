@@ -21,6 +21,12 @@
             }
         }
 
+        .gradient-bg {
+            background: #86e3ce;
+            background-size: 800% 800%;
+            animation: gradient 15s ease infinite;
+        }
+
         .gradient-bg:hover {
             background: linear-gradient(270deg, #ff7e5f, #feb47b, #86e3ce, #9bafd9);
             background-size: 800% 800%;
@@ -57,7 +63,7 @@
                 <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
                     Find the Suitable College for My Rank
                 </a>
-                <a href="#" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+                <a href="#" class="bg-green-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
                     College Previous Years Rank Details by Community
                 </a>
                 <a href="#" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
