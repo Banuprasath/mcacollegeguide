@@ -36,6 +36,8 @@
 </head>
 
 <body class="bg-gray-100">
+    <!-- Navbar -->
+
 
     <!-- Header Section -->
     <header class="gradient-bg text-white py-6">
@@ -63,10 +65,10 @@
                 <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
                     Find the Suitable College for My Rank
                 </a>
-                <a href="#" class="bg-green-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
-                    College Previous Years Rank Details by Community
+                <a href="check_previous_data.php" class="bg-green-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+                    College Previous Years Rank Details
                 </a>
-                <a href="#" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+                <a href="checkMyCollege.php" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
                     Check My Eligibility for Particular College
                 </a>
             </div>

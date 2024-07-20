@@ -1,125 +1,150 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TANCET Landing Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
 
-</html>
-<?php
-include 'conn.php';
-$sql = "SELECT * FROM `college_code`";
-$result = mysqli_query($con, $sql);
+      50% {
+        background-position: 100% 50%;
+      }
 
-?>
-
-
-<form name='test' method='POST'>
-  <input type='test' name='rank' value="" />
-
-
-  <input type='submit' name='submit' value='submit' />
-</form>
-
-
-<?php
-if (isset($_POST['submit'])) {
-
-
-  $G_RANK = $_POST['rank'];
-
-
-
-
-
-
-  // echo $val;
-  $sql = "(
-    SELECT `RANK`, `COLLEGE-CODE`,'2023' AS `YEAR`
-    FROM `D2023`
-    WHERE `RANK` < $G_RANK
-    ORDER BY `RANK` DESC
-    LIMIT 5
-)
-UNION ALL
-(
-    SELECT `RANK`, `COLLEGE-CODE`,'2023' AS `YEAR`
-    FROM `D2023`
-    WHERE `RANK` >= $G_RANK
-    ORDER BY `RANK` ASC
-    LIMIT 6
-)
-UNION ALL
-(
-    SELECT `RANK`, `COLLEGE-CODE`,'2022' AS `YEAR`
-    FROM `D2022`
-    WHERE `RANK` < $G_RANK
-    ORDER BY `RANK` DESC
-    LIMIT 5
-)
-UNION ALL
-(
-    SELECT `RANK`, `COLLEGE-CODE`,'2022' AS `YEAR`
-    FROM `D2022`
-    WHERE `RANK` >= $G_RANK
-    ORDER BY `RANK` ASC
-    LIMIT 6
-)
-UNION ALL
-(
-    SELECT `RANK`, `COLLEGE-CODE`,'2021' AS `YEAR`
-    FROM `D2021`
-    WHERE `RANK` < $G_RANK
-    ORDER BY `RANK` DESC
-    LIMIT 5
-)
-UNION ALL
-(
-    SELECT `RANK`, `COLLEGE-CODE`,'2021' AS `YEAR`
-    FROM `D2021`
-    WHERE `RANK` >= $G_RANK
-    ORDER BY `RANK` ASC
-    LIMIT 6
-)
-ORDER BY `RANK`
-LIMIT 25;
-";
-
-  $result = mysqli_query($con, $sql);
-  if (mysqli_num_rows($result) > 0) {
-
-    while ($rank_row = mysqli_fetch_assoc($result)) {
-
-      $col_code = $rank_row['COLLEGE-CODE'];
-
-      $sql = "SELECT DISTINCT  * FROM `college_code` WHERE `c-code` =  '$col_code' ";
-      $result1 = mysqli_query($con, $sql);
-
-      if (mysqli_num_rows($result1) > 0) {
-
-        while ($row = mysqli_fetch_assoc($result1)) {
-          print_r($row);
-          echo  $rank_row['YEAR'];
-
-          //echo $row['c-name'];
-          echo "<br>";
-        }
-      } else {
-        echo "Sorry we don't have data for your Rank for year: ";
+      100% {
+        background-position: 0% 50%;
       }
     }
-  } else {
-    echo "Sorry we don't have data for your Rank";
-  }
+
+    .gradient-bg {
+      background: #86e3ce;
+      background-size: 800% 800%;
+      animation: gradient 15s ease infinite;
+    }
+
+    .gradient-bg:hover {
+      background: linear-gradient(270deg, #ff7e5f, #feb47b, #86e3ce, #9bafd9);
+      background-size: 800% 800%;
+      animation: gradient 15s ease infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Navbar -->
 
 
-  //show c-code of selected college
+  <!-- Header Section -->
+  <header class="gradient-bg text-white py-6">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl font-bold">What is TANCET?</h1>
+      <p class="mt-4 text-lg">Tamil Nadu Common Entrance Test (TANCET) is an entrance exam for postgraduate programs.</p>
+    </div>
+  </header>
 
-}
-?>
+  <!-- About TANCET Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold text-center text-gray-800">About TANCET</h2>
+      <p class="mt-4 text-gray-600 text-center">
+        TANCET is conducted by Anna University for admission to MBA, MCA, M.E., M.Tech., M.Arch., and M.Plan programs in colleges across Tamil Nadu.
+      </p>
+    </div>
+  </section>
+
+  <!-- Buttons Section -->
+  <section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-semibold text-gray-800">Explore TANCET</h2>
+      <div class="mt-8 flex flex-col md:flex-row justify-center gap-8">
+        <a href="findCollege.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+          Find the Suitable College for My Rank
+        </a>
+        <a href="check_previous_data.php" class="bg-green-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+          College Previous Years Rank Details
+        </a>
+        <a href="checkMyCollege.php" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+          Check My Eligibility for Particular College
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Uses of TANCET Section -->
+  <section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold text-center text-gray-800">Uses of TANCET</h2>
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold text-teal-500">Postgraduate Admissions</h3>
+          <p class="mt-4 text-gray-600">
+            TANCET scores are used for admission to postgraduate programs in various colleges across Tamil Nadu.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold text-teal-500">Scholarship Eligibility</h3>
+          <p class="mt-4 text-gray-600">
+            High TANCET scores can help students qualify for scholarships and financial aid.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold text-teal-500">Career Advancement</h3>
+          <p class="mt-4 text-gray-600">
+            Graduating from a prestigious institution via TANCET can enhance career opportunities and professional growth.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Famous Colleges Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold text-center text-gray-800">Famous Colleges Appearing for TANCET</h2>
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <img src="https://via.placeholder.com/300" alt="Anna University" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="p-4">
+            <h3 class="text-xl font-bold text-blue-500">Anna University</h3>
+            <p class="mt-4 text-gray-600">
+              A premier institution known for its excellence in engineering and technology education.
+            </p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <img src="https://via.placeholder.com/300" alt="PSG College of Technology" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="p-4">
+            <h3 class="text-xl font-bold text-blue-500">PSG College of Technology</h3>
+            <p class="mt-4 text-gray-600">
+              Renowned for its engineering programs and industry connections.
+            </p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <img src="https://via.placeholder.com/300" alt="Loyola College" class="w-full h-48 object-cover rounded-t-lg">
+          <div class="p-4">
+            <h3 class="text-xl font-bold text-blue-500">Loyola College</h3>
+            <p class="mt-4 text-gray-600">
+              Known for its management and arts programs with a strong emphasis on academic excellence.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="bg-gray-800 text-white py-6">
+    <div class="container mx-auto text-center">
+      <p class="text-sm">&copy; 2024 TANCET Info. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
