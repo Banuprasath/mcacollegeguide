@@ -16,29 +16,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Tailwind Navbar</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Gray Navbar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-gray-800 {
+            background-color: #303c4f;
+            /* Tailwind's bg-gray-800 color #2d3748 */
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100">
-
+<body>
     <!-- Navbar -->
-    <nav class="bg-gray-800 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.php" class="text-white text-lg font-semibold">MCA Guide</a>
-            <div class="flex space-x-4">
-                <a href="index.php" class="text-gray-300 hover:text-white">Home</a>
-
-                <a href="check_previous_data.php" class="text-gray-300 hover:text-white"> College</a>
-                <a href="findCollege.php" class="text-gray-300 hover:text-white"> Rank</a>
-                <a href="checkMyCollege.php" class="text-gray-300 hover:text-white">My College</a>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-gray-800">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">MCA Guide</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="index.php">Home</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="check_previous_data.php">College</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="findCollege.php">Rank</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="checkMyCollege.php">My College</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

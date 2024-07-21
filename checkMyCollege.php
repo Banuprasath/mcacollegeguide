@@ -52,6 +52,10 @@
         .how-it-works p {
             color: #6b7280;
         }
+
+        .flex {
+            display: flow;
+        }
     </style>
     <script>
         function validateForm() {
@@ -118,6 +122,9 @@
     </script>
 </head>
 
+<?php
+include("navbar.php");
+?>
 
 <body class="flex flex-col items-center justify-center min-h-screen">
 

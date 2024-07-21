@@ -33,6 +33,12 @@
       animation: gradient 15s ease infinite;
     }
   </style>
+  <style>
+    a {
+      text-decoration: none;
+    }
+  </style>
+
 </head>
 <?php
 include("navbar.php");
@@ -64,13 +70,13 @@ include("navbar.php");
     <div class="container mx-auto px-4 text-center">
       <h2 class="text-3xl font-semibold text-gray-800">Explore TANCET</h2>
       <div class="mt-8 flex flex-col md:flex-row justify-center gap-8">
-        <a href="findCollege.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+        <a href="findCollege.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg" style="text-decoration: none;">
           Find the Suitable College for My Rank
         </a>
-        <a href="check_previous_data.php" class="bg-green-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+        <a href="check_previous_data.php" class="bg-green-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg" style="text-decoration: none;">
           College Previous Years Rank Details
         </a>
-        <a href="checkMyCollege.php" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+        <a href="checkMyCollege.php" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg" style="text-decoration: none;">
           Check My Eligibility for Particular College
         </a>
       </div>

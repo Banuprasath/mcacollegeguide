@@ -207,11 +207,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2024 College Info. All rights reserved.</p>
-        </div>
-    </footer>
+
 
     <script>
         $(document).ready(function() {
@@ -223,5 +219,10 @@
     </script>
 
 </body>
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p class="mb-0">&copy; 2024 College Info. All rights reserved.</p>
+    </div>
+</footer>
 
 </html>
