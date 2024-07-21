@@ -176,7 +176,7 @@ include("navbar.php");
   <!-- Footer Section -->
   <footer class="bg-gray-800 text-white py-6">
     <div class="container mx-auto text-center">
-      <p class="text-sm">&copy; 2024 TANCET Info. All rights reserved.</p>
+      <p class="text-sm">&copy; MCA Guide. All rights reserved.</p>
     </div>
   </footer>
 
