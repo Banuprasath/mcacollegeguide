@@ -34,9 +34,11 @@
     }
   </style>
 </head>
+<?php
+include("navbar.php");
+?>
 
 <body class="bg-gray-100">
-  <!-- Navbar -->
 
 
   <!-- Header Section -->

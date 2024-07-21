@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TANCET Eligibility Check</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <style>
         body {
             background: #f1f5f8;
@@ -101,24 +104,31 @@
                 }));
             }, 250);
         }
+
+        $(document).ready(function() {
+            $('#collegeCodeSelect').select2({
+                placeholder: 'Select College Code',
+                width: '100%' // Adjust width to fit your design
+            });
+            $('#communitySelect').select2({
+                placeholder: 'Select Community',
+                width: '100%' // Adjust width to fit your design
+            });
+        });
     </script>
 </head>
 
 
 <body class="flex flex-col items-center justify-center min-h-screen">
 
-    <div class="how-it-works p-4">
+    <!-- Navbar -->
+
+    <div class="how-it-works p-4 mt-8">
         <h2 class="text-2xl font-semibold">How It Works</h2>
         <p class="text-gray-600 mt-2">
+            TANCET, the Tamil Nadu Common Entrance Test, is an entrance exam for various postgraduate programs, designed to assess candidates' eligibility for admission to higher education institutions in Tamil Nadu. This test evaluates candidates based on their performance in subjects related to their chosen field of study and plays a crucial role in the college admission process.
 
-
-            TANCET, the Tamil Nadu Common Entrance Test, is an entrance exam for various postgraduate programs. It is designed to assess candidates' eligibility for admission to higher education institutions in Tamil Nadu. The test evaluates candidates based on their performance in subjects related to their chosen field of study. TANCET scores play a crucial role in the college admission process.
-
-            To determine your eligibility for a particular college, we use data from the provisional allotment lists of the last four years of counseling. This database helps us evaluate whether your rank and community meet the criteria for admission. By comparing your details with historical records, we can assess your chances of securing a spot in the desired institution. This method provides a more accurate prediction of your potential admission outcome.
-
-
-
-
+            Please note that this page is intended for testing purposes only. The results provided here are not guaranteed to be accurate and should not be relied upon as definitive. The data used for evaluation is based on historical records and may not fully reflect current admission criteria. The result will be approximately 90% accurate and is meant to give a general idea of your chances of getting into a particular college. For a precise assessment, please refer to official sources and consult with relevant authorities.
         </p>
     </div>
 
@@ -149,17 +159,17 @@
                 <select class="form-select w-full border rounded px-3 py-2" name="community" id="communitySelect">
                     <option value="">Select Community</option>
                     <?php
-                    $sql = "SELECT DISTINCT community FROM `d2021`";
+                    $sql = "SELECT DISTINCT category FROM `d2021`";
                     $result = mysqli_query($con, $sql);
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='{$row['community']}'>{$row['community']}</option>";
+                            echo "<option value='{$row['category']}'>{$row['category']}</option>";
                         }
                     }
                     ?>
                 </select>
             </div>
-            <input type="submit" value="check" name="submit" class="w-full bg-green-500 text-white font-semibold py-2 rounded cursor-pointer hover:bg-green-600">
+            <input type="submit" value="Check" name="submit" class="w-full bg-green-500 text-white font-semibold py-2 rounded cursor-pointer hover:bg-green-600">
         </form>
 
         <div class="result mt-6">
@@ -176,31 +186,37 @@
 
                 // SQL query
                 $sql = "
-                SELECT CASE
-                    WHEN EXISTS (
-                        SELECT 1 FROM `D2023` 
-                        WHERE `college-code` = '$college_code' 
-                        AND `community` = '$community' 
-                        AND `RANK` >= '$rank'
-                    )
-                    OR EXISTS (
-                        SELECT 1 FROM `D2022` 
-                        WHERE `college-code` = '$college_code' 
-                        AND `community` = '$community' 
-                        AND `RANK` >= '$rank'
-                    )
-                    OR EXISTS (
-                        SELECT 1 FROM `D2021` 
-                        WHERE `college-code` = '$college_code' 
-                        AND `community` = '$community' 
-                        AND `RANK` >= '$rank'
-                    )
-                    THEN 'You have a chance to get this college'
-                    ELSE 'You have less chance to get this college'
-                END AS chance;
-                ";
+    SELECT CASE
+        WHEN EXISTS (
+            SELECT 1 FROM `d2023` 
+            WHERE `college-code` = '$college_code' 
+            AND `category` = '$community' 
+            AND `RANK` >= '$rank'
+        )
+        OR EXISTS (
+            SELECT 1 FROM `d2022` 
+            WHERE `college-code` = '$college_code' 
+            AND `category` = '$community' 
+            AND `RANK` >= '$rank'
+        )
+        OR EXISTS (
+            SELECT 1 FROM `d2021` 
+
+
+            WHERE `college-code` = '$college_code' 
+            AND `category` = '$community' 
+            AND `RANK` >= '$rank'
+        )
+        THEN 'You have a chance to get this college'
+        ELSE 'You have less chance to get this college'
+    END AS chance;
+    ";
 
                 $result = $con->query($sql);
+
+                if (!$result) {
+                    die("Error executing query: " . $con->error);
+                }
 
                 if ($result->num_rows > 0) {
                     // Output the result
@@ -222,8 +238,6 @@
             ?>
         </div>
     </div>
-
-
 
 </body>
 

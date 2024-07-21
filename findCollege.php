@@ -13,31 +13,12 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">College Info</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php
+    include("navbar.php");
+    ?>
     <!-- Main Content -->
     <div class="container my-8">
-        <div class=" rounded-lg shadow-lg p-6">
+        <div class="rounded-lg shadow-lg p-6">
             <h1 class="text-2xl font-semibold text-gray-800 mb-6">Find suitable college for my Rank</h1>
             <form name='test' method='POST' class="mb-6">
                 <div class="mb-4">
@@ -66,101 +47,103 @@
                 } else {
 
                     $sql = "(
-                    SELECT `RANK`, `COLLEGE-CODE`, '2023' AS `YEAR`
-                    FROM `D2023`
-                    WHERE `RANK` < $G_RANK
-                    ORDER BY `RANK` DESC
-                    LIMIT 5
-                )
-                UNION ALL
-                (
-                    SELECT `RANK`, `COLLEGE-CODE`, '2023' AS `YEAR`
-                    FROM `D2023`
-                    WHERE `RANK` >= $G_RANK
-                    ORDER BY `RANK` ASC
-                    LIMIT 6
-                )
-                UNION ALL
-                (
-                    SELECT `RANK`, `COLLEGE-CODE`, '2022' AS `YEAR`
-                    FROM `D2022`
-                    WHERE `RANK` < $G_RANK
-                    ORDER BY `RANK` DESC
-                    LIMIT 5
-                )
-                UNION ALL
-                (
-                    SELECT `RANK`, `COLLEGE-CODE`, '2022' AS `YEAR`
-                    FROM `D2022`
-                    WHERE `RANK` >= $G_RANK
-                    ORDER BY `RANK` ASC
-                    LIMIT 6
-                )
-                UNION ALL
-                (
-                    SELECT `RANK`, `COLLEGE-CODE`, '2021' AS `YEAR`
-                    FROM `D2021`
-                    WHERE `RANK` < $G_RANK
-                    ORDER BY `RANK` DESC
-                    LIMIT 5
-                )
-                UNION ALL
-                (
-                    SELECT `RANK`, `COLLEGE-CODE`, '2021' AS `YEAR`
-                    FROM `D2021`
-                    WHERE `RANK` >= $G_RANK
-                    ORDER BY `RANK` ASC
-                    LIMIT 6
-                )
-                ORDER BY `RANK`
-                LIMIT 25;";
+                        SELECT `RANK`, `COLLEGE-CODE`, '2023' AS `YEAR`
+                        FROM `d2023`
+                        WHERE `RANK` < $G_RANK
+                        ORDER BY `RANK` DESC
+                        LIMIT 5
+                    )
+                    UNION ALL
+                    (
+                        SELECT `RANK`, `COLLEGE-CODE`, '2023' AS `YEAR`
+                        FROM `d2023`
+                        WHERE `RANK` >= $G_RANK
+                        ORDER BY `RANK` ASC
+                        LIMIT 6
+                    )
+                    UNION ALL
+                    (
+                        SELECT `RANK`, `COLLEGE-CODE`, '2022' AS `YEAR`
+                        FROM `d2022`
+                        WHERE `RANK` < $G_RANK
+                        ORDER BY `RANK` DESC
+                        LIMIT 5
+                    )
+                    UNION ALL
+                    (
+                        SELECT `RANK`, `COLLEGE-CODE`, '2022' AS `YEAR`
+                        FROM `d2022`
+                        WHERE `RANK` >= $G_RANK
+                        ORDER BY `RANK` ASC
+                        LIMIT 6
+                    )
+                    UNION ALL
+                    (
+                        SELECT `RANK`, `COLLEGE-CODE`, '2021' AS `YEAR`
+                        FROM `d2021`
+                        WHERE `RANK` < $G_RANK
+                        ORDER BY `RANK` DESC
+                        LIMIT 5
+                    )
+                    UNION ALL
+                    (
+                        SELECT `RANK`, `COLLEGE-CODE`, '2021' AS `YEAR`
+                        FROM `d2021`
+                        WHERE `RANK` >= $G_RANK
+                        ORDER BY `RANK` ASC
+                        LIMIT 6
+                    )
+                    ORDER BY `RANK`
+                    LIMIT 25;";
+
+                    // Debugging: Print the SQL query
+                    //     echo "<pre>" . htmlspecialchars($sql) . "</pre>";
 
                     $result = mysqli_query($con, $sql);
 
-                    $data = [];
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($rank_row = mysqli_fetch_assoc($result)) {
-                            $col_code = $rank_row['COLLEGE-CODE'];
-
-                            $sql_college = "SELECT DISTINCT * FROM `college_code` WHERE `c-code` = '$col_code'";
-                            $result_college = mysqli_query($con, $sql_college);
-
-                            if (mysqli_num_rows($result_college) > 0) {
-                                while ($college_row = mysqli_fetch_assoc($result_college)) {
-                                    $data[] = [
-                                        'name' => $college_row['c-name'],
-                                        'year' => $rank_row['YEAR']
-                                    ];
-                                }
-                            } else {
-                                // $data[] = [
-                                //     'name' => "Sorry we don't have data for your Rank for year: " . $rank_row['YEAR'],
-                                //     'year' => $rank_row['YEAR']
-                                // ];
-                            }
-                        }
+                    if (!$result) {
+                        // Display SQL error
+                        echo '<p class="text-red-500">SQL Error: ' . mysqli_error($con) . '</p>';
                     } else {
-                        // $data[] = [
-                        //     'name' => "Sorry we don't have data for your Rank",
-                        //     'year' => ''
-                        // ];
-                    }
-            ?>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <?php foreach ($data as $item) : ?>
-                            <?php
-                            // Pick a random color for each card
-                            $randomColor = $colors[array_rand($colors)];
-                            ?>
-                            <div class="rounded-lg shadow-md p-4" style="background-color: <?php echo htmlspecialchars($randomColor); ?>;">
-                                <h3 class="text-lg font-semibold text-gray-800 mb-2"><?php echo htmlspecialchars($item['name']); ?></h3>
-                                <p class="text-gray-600">Year: <?php echo htmlspecialchars($item['year']); ?></p>
+                        $data = [];
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($rank_row = mysqli_fetch_assoc($result)) {
+                                $col_code = $rank_row['COLLEGE-CODE'];
 
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                                $sql_college = "SELECT DISTINCT * FROM `college_code` WHERE `c-code` = '$col_code'";
+                                $result_college = mysqli_query($con, $sql_college);
+
+                                if ($result_college && mysqli_num_rows($result_college) > 0) {
+                                    while ($college_row = mysqli_fetch_assoc($result_college)) {
+                                        $data[] = [
+                                            'name' => $college_row['c-name'],
+                                            'year' => $rank_row['YEAR']
+                                        ];
+                                    }
+                                } else {
+                                    // Handle case where no college data is found
+                                }
+                            }
+                        } else {
+                            // Handle case where no data is found for the given rank
+                        }
+            ?>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <?php foreach ($data as $item) : ?>
+                                <?php
+                                // Pick a random color for each card
+                                $randomColor = $colors[array_rand($colors)];
+                                ?>
+                                <div class="rounded-lg shadow-md p-4" style="background-color: <?php echo htmlspecialchars($randomColor); ?>;">
+                                    <h3 class="text-lg font-semibold text-gray-800 mb-2"><?php echo htmlspecialchars($item['name']); ?></h3>
+                                    <p class="text-gray-600">Year: <?php echo htmlspecialchars($item['year']); ?></p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
             <?php }
-            } ?>
+                }
+            }
+            ?>
         </div>
     </div>
 
